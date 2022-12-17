@@ -2,7 +2,7 @@ package arrayandslices
 import "testing"
 
 func TestSum(t *testing.T) {
-  assert := func(t testing.TB, got, want int, arr [5]int) {
+  assert := func(t testing.TB, got, want int, arr []int) {
     t.Helper()
     if got != want {
       t.Errorf("got %d want %d given, %v", got, want, arr)
@@ -10,7 +10,7 @@ func TestSum(t *testing.T) {
   }
 
   t.Run("collection of 5 numbers", func(t *testing.T) {
-    arr := [5]int{1, 2, 3, 4, 5}
+    arr := []int{1, 2, 3, 4, 5}
     got := Sum(arr)
     want := 15
     assert(t, got, want, arr)
