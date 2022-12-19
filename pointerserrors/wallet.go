@@ -1,5 +1,8 @@
 package pointerserrors
-import "fmt"
+import (
+  "fmt"
+  "errors"
+  )
 
 type Stringer interface {
   String() string
@@ -21,4 +24,13 @@ func(w *Wallet) Deposit(amount Bitcoin) {
 
 func(w *Wallet) Balance() Bitcoin {
   return w.balance
+}
+
+var ErrInsufficientfunds = errors.New("cannot withdraw, insufficient funds")
+func(w *Wallet) WithDraw(amount Bitcoin) error {
+  if amount > w.balance {
+    return ErrInsufficientfunds
+  }
+  w.balance -= amount
+  return nil
 }
