@@ -1,14 +1,14 @@
 package main
 import ( 
-  "bytes"
+  "io"
   "fmt"
+  "os"
 )
 
-func Countdown(out *bytes.Buffer) {
+func Countdown(out io.Writer) {
  fmt.Fprint(out, "3") 
 }
 
 func main() {
-  buffer := bytes.Buffer{}
-  Countdown(&buffer)
+  Countdown(os.Stdout)
 }
