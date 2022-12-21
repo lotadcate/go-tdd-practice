@@ -9,9 +9,19 @@ import (
 const finalWord = "Go!"
 const countdownStart = 3
 
-func Countdown(out io.Writer) {
+type Sleeper interface {
+  Sleep()
+}
+
+type DefaultSleeper struct {}
+
+func (d *DefaultSleeper) Sleep() {
+  time.Sleep(1 * time.Second)
+}
+
+func Countdown(out io.Writer, sleeper Sleeper) {
   for i:=countdownStart; i>0; i-- {
-    time.Sleep(1 * time.Second)
+    sleeper.Sleep()
     fmt.Fprintln(out, i)
   }
   time.Sleep(1 * time.Second)
@@ -19,5 +29,6 @@ func Countdown(out io.Writer) {
 }
 
 func main() {
-  Countdown(os.Stdout)
+  sleeper := &DefaultSleeper{}
+  Countdown(os.Stdout, sleeper)
 }
